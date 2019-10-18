@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "CRUDSchematics",
+  "title": "CRUD Options Schema",
+  "type": "object",
+  "description": "options schema for create CRUD component",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the component",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Enter the component name : "
+    }
+  },
+  "required": [
+    "name"
+  ]
+}
