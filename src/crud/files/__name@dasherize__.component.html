@@ -13,16 +13,16 @@
             <form [formGroup]="searchForm" (ngSubmit)="onSearch()" novalidate>
               <div class="row">
                 <mat-form-field class="col-md-3">
-                  <input matInput [placeholder]="Col 1" type="text" formControlName="col1">
+                  <input matInput placeholder="Col 1" type="text" formControlName="col1">
                 </mat-form-field>
                 <mat-form-field class="col-md-3">
-                  <input matInput [placeholder]="Col 2" type="text" formControlName="col2">
+                  <input matInput placeholder="Col 2" type="text" formControlName="col2">
                 </mat-form-field>
                 <mat-form-field class="col-md-3">
-                  <input matInput [placeholder]="Col 3" type="text" formControlName="col3">
+                  <input matInput placeholder="Col 3" type="text" formControlName="col3">
                 </mat-form-field>
                 <mat-form-field class="col-md-3">
-                  <input matInput [placeholder]="Col 4" type="text" formControlName="col4">
+                  <input matInput placeholder="Col 4" type="text" formControlName="col4">
                 </mat-form-field>
               </div>
               <div class="pull-right">
@@ -81,22 +81,22 @@
             <form #createFormDirective="ngForm" [formGroup]="createForm" (ngSubmit)="onSave()" novalidate>
               <div class="row">
                 <mat-form-field class="col-md-3">
-                  <input matInput type="text" [placeholder]="col1" formControlName="col1">
+                  <input matInput type="text" placeholder="col1" formControlName="col1">
                   <mat-error *ngIf="createForm.controls['col1'].hasError('required')">
                     {{ 'error.required' | translate }}
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field class="col-md-3">
-                  <input matInput type="text" [placeholder]="col2" formControlName="col2">
+                  <input matInput type="text" placeholder="col2" formControlName="col2">
                   <mat-error *ngIf="createForm.controls['col2'].hasError('required')">
                     {{ 'error.required' | translate }}
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field class="col-md-3">
-                  <input matInput type="text" [placeholder]="col3" formControlName="col3">
+                  <input matInput type="text" placeholder="col3" formControlName="col3">
                 </mat-form-field>
                 <mat-form-field class="col-md-3">
-                  <input matInput type="text" [placeholder]="col4" formControlName="col4">
+                  <input matInput type="text" placeholder="col4" formControlName="col4">
                 </mat-form-field>
                 <div class="col-md-2">
                   <button mat-raised-button type="submit" class="btn btn-fill btn-primary">{{ 'button.save' | translate }}</button>
