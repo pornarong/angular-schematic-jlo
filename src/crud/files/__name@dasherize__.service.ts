@@ -33,7 +33,7 @@ export class <%= classify(name) %>Service {
   }
   save<%= classify(name) %>(param: ApiRequest<any>): Promise<ApiResponse<any>> {
     return new Promise((resolve, reject) => {
-      const response: ApResponse<any> = {
+      const response: ApiResponse<any> = {
         status: true,
         data: { col1: 'Item 1 Col 1', col2: 'Item 1 Col 2', col3: 'Item 1 Col 3', col4: 'Item 1 Col 4'}
       };
@@ -42,7 +42,7 @@ export class <%= classify(name) %>Service {
   }
   delete<%= classify(name) %>(param: ApiRequest<any>): Promise<ApiResponse<any>> {
     return new Promise((resolve, reject) => {
-      const response: ApResponse<any> = {
+      const response: ApiResponse<any> = {
         status: true
       };
       resolve(response);
