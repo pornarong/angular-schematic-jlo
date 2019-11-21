@@ -14,7 +14,7 @@
               <div class="row"><% for (let column of columnListJson.filter(c => c.is_searchable === 'Y')) { %>
                 <mat-form-field class="col-md-3"><% if (column.el_type === 'text') { %>
                   <input matInput placeholder="<%= column.column_name %>" type="text" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"><% } else if (column.el_type === 'textarea') { %>
-                  <textarea matInput placeholder="<%= column.column_name %>" rows="2" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"><% } else if (column.el_type === 'date') { %>
+                  <textarea matInput placeholder="<%= column.column_name %>" rows="2" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"></textarea><% } else if (column.el_type === 'date') { %>
                   <input matInput placeholder="<%= column.column_name %>" [matDatepicker]="picker_<%= camelize(column.column_name.toLowerCase()) %>" formControlName="<%= camelize(column.column_name.toLowerCase()) %>">
                   <mat-datepicker-toggle matSuffix [for]="picker_<%= camelize(column.column_name.toLowerCase()) %>"></mat-datepicker-toggle>
                   <mat-datepicker #picker_<%= camelize(column.column_name.toLowerCase()) %>></mat-datepicker><% } %>
@@ -65,7 +65,7 @@
               <div class="row"><% for (let column of columnListJson.filter(c => !system_fields.includes(c.column_name.toLowerCase()))) { %>
                 <mat-form-field class="col-md-3"><% if (column.el_type === 'text') { %>
                   <input matInput placeholder="<%= column.column_name %>" type="text" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"<%= column.is_identity === 'true' ? ' readonly' : '' %>><% } else if (column.el_type === 'textarea') { %>
-                  <textarea matInput placeholder="<%= column.column_name %>" rows="2" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"><% } else if (column.el_type === 'date') { %>
+                  <textarea matInput placeholder="<%= column.column_name %>" rows="2" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"></textarea><% } else if (column.el_type === 'date') { %>
                   <input matInput placeholder="<%= column.column_name %>" [matDatepicker]="picker_<%= camelize(column.column_name.toLowerCase()) %>" formControlName="<%= camelize(column.column_name.toLowerCase()) %>">
                   <mat-datepicker-toggle matSuffix [for]="picker_<%= camelize(column.column_name.toLowerCase()) %>"></mat-datepicker-toggle>
                   <mat-datepicker #picker_<%= camelize(column.column_name.toLowerCase()) %>></mat-datepicker><% } %><% if (column.is_require === 'Y') { %>
