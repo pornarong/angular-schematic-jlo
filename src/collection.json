@@ -2,9 +2,14 @@
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "crud": {
-      "description": "A CRUD schematic.",
+      "description": "Static JLO CRUD schematic.",
       "factory": "./crud/index#generate",
       "schema": "./crud/schema.json"
+    },
+    "dynamic_crud": {
+      "description": "Dynamic JLO CRUD schematic.",
+      "factory": "./dynamic_crud/index#generate",
+      "schema": "./dynamic_crud/schema.json"
     }
   }
 }
