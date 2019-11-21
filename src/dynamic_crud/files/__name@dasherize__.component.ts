@@ -100,6 +100,10 @@ export class <%= classify(name) %>Component implements OnInit {
     this.createForm.patchValue({
       ...this.selectedRow
     });
+    <% for (let column of columnListJson.filter(c => c.el_type === 'date' && !system_fields.includes(c.column_name.toLowerCase()))) { %>
+    if (this.selectedRow.<%= camelize(column.column_name.toLowerCase()) %>) {
+      this.createForm.get('<%= camelize(column.column_name.toLowerCase()) %>').setValue(Utils.getStringForDate(this.selectedRow.<%= camelize(column.column_name.toLowerCase()) %>));
+    }<% } %>
   }
 
   onSave() {
