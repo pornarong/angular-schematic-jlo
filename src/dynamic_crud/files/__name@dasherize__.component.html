@@ -12,8 +12,12 @@
           <div class="card-body">
             <form [formGroup]="searchForm" (ngSubmit)="onSearch()" novalidate>
               <div class="row"><% for (let column of columnListJson.filter(c => c.is_searchable === 'Y')) { %>
-                <mat-form-field class="col-md-3">
-                  <input matInput placeholder="<%= column.column_name %>" type="text" formControlName="<%= camelize(column.column_name.toLowerCase()) %>">
+                <mat-form-field class="col-md-3"><% if (column.el_type === 'text') { %>
+                  <input matInput placeholder="<%= column.column_name %>" type="text" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"><% } else if (column.el_type === 'textarea') { %>
+                  <textarea matInput placeholder="<%= column.column_name %>" rows="2" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"><% } else if (column.el_type === 'date') { %>
+                  <input matInput [matDatepicker]="picker_<%= camelize(column.column_name.toLowerCase()) %>" formControlName="<%= camelize(column.column_name.toLowerCase()) %>" [placeholder]="<%= column.column_name %>">
+                  <mat-datepicker-toggle matSuffix [for]="picker_<%= camelize(column.column_name.toLowerCase()) %>"></mat-datepicker-toggle>
+                  <mat-datepicker #picker_<%= camelize(column.column_name.toLowerCase()) %>></mat-datepicker><% } %>
                 </mat-form-field><% } %>
               </div>
               <div class="pull-right">
@@ -59,16 +63,18 @@
           <div class="card-body">
             <form #createFormDirective="ngForm" [formGroup]="createForm" (ngSubmit)="onSave()" novalidate>
               <div class="row"><% for (let column of columnListJson.filter(c => !system_fields.includes(c.column_name.toLowerCase()))) { %>
-                <mat-form-field class="col-md-3">
-                  <input matInput type="text" placeholder="<%= column.column_name %>" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"<%= column.is_identity === 'true' ? ' readonly' : '' %>><% if (column.is_require === 'Y') { %>
+                <mat-form-field class="col-md-3"><% if (column.el_type === 'text') { %>
+                  <input matInput placeholder="<%= column.column_name %>" type="text" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"<%= column.is_identity === 'true' ? ' readonly' : '' %>><% } else if (column.el_type === 'textarea') { %>
+                  <textarea matInput placeholder="<%= column.column_name %>" rows="2" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"><% } else if (column.el_type === 'date') { %>
+                  <input matInput [matDatepicker]="picker_<%= camelize(column.column_name.toLowerCase()) %>" formControlName="<%= camelize(column.column_name.toLowerCase()) %>" [placeholder]="<%= column.column_name %>">
+                  <mat-datepicker-toggle matSuffix [for]="picker_<%= camelize(column.column_name.toLowerCase()) %>"></mat-datepicker-toggle>
+                  <mat-datepicker #picker_<%= camelize(column.column_name.toLowerCase()) %>></mat-datepicker><% } %><% if (column.is_require === 'Y') { %>
                   <mat-error *ngIf="createForm.controls['<%= camelize(column.column_name.toLowerCase()) %>'].hasError('required')">
                     {{ 'error.required' | translate }}
                   </mat-error><% } %>
                 </mat-form-field><% } %>
-                <div class="col-md-2">
-                  <button mat-raised-button type="submit" class="btn btn-fill btn-primary">{{ 'button.save' | translate }}</button>
-                </div>
               </div>
+              <button mat-raised-button type="submit" class="btn btn-fill btn-primary pull-right">{{ 'button.save' | translate }}</button>
             </form>
           </div>
         </div>

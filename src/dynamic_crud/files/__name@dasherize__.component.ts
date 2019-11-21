@@ -44,7 +44,7 @@ export class <%= classify(name) %>Component implements OnInit {
     const param = {
       ...this.searchForm.value
       , sortColumn: this.tableControl.sortColumn
-      , sortDirection: this.tableControl.sortDirection
+      , sortDirection: this.tableControl.sortDirection<% for (let column of columnListJson.filter(c => c.el_type === 'date' && !system_fields.includes(c.column_name.toLowerCase()))) { %><%= "\n      , " + camelize(column.column_name.toLowerCase()) + ": Utils.getDateString(this.searchForm.value['" + camelize(column.column_name.toLowerCase()) + "'])" %><% } %>
     };
     this.<%= camelize(name) %>Service.get<%= classify(name) %>List({
       pageSize: this.tableControl.pageSize,
@@ -108,17 +108,16 @@ export class <%= classify(name) %>Component implements OnInit {
     }
 
     let response: Promise<ApiResponse<any>>;
+    const param = {
+      ...this.createForm.value<% for (let column of columnListJson.filter(c => c.el_type === 'date' && !system_fields.includes(c.column_name.toLowerCase()))) { %><%= "\n      , " + camelize(column.column_name.toLowerCase()) + ": Utils.getDateString(this.createForm.value['" + camelize(column.column_name.toLowerCase()) + "'])" %><% } %>
+    };
     if (this.isUpdate) {
       response = this.<%= camelize(name) %>Service.update<%= classify(name) %>({
-        data: {
-          ...this.createForm.value
-        }
+        data: param
       });
     } else {
       response = this.<%= camelize(name) %>Service.create<%= classify(name) %>({
-        data: {
-          ...this.createForm.value
-        }
+        data: param
       });
     }
     response.then(result => {
