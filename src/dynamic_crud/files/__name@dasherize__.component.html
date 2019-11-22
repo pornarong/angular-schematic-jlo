@@ -17,7 +17,7 @@
                   <textarea matInput placeholder="<%= column.column_name %>" rows="2" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"></textarea><% } else if (column.el_type === 'date') { %>
                   <input matInput placeholder="<%= column.column_name %>" [matDatepicker]="picker_<%= camelize(column.column_name.toLowerCase()) %>" formControlName="<%= camelize(column.column_name.toLowerCase()) %>">
                   <mat-datepicker-toggle matSuffix [for]="picker_<%= camelize(column.column_name.toLowerCase()) %>"></mat-datepicker-toggle>
-                  <mat-datepicker #picker_<%= camelize(column.column_name.toLowerCase()) %>></mat-datepicker><% } else if (column.el_type === 'codebook_dropdown') { %>
+                  <mat-datepicker #picker_<%= camelize(column.column_name.toLowerCase()) %>></mat-datepicker><% } else if (column.el_type === 'dropdown_codebook') { %>
                   <mat-select placeholder="<%= column.column_name %>" formControlName="<%= camelize(column.column_name.toLowerCase()) %>">
                     <mat-option *ngFor="let item of <%= camelize(column.column_name.toLowerCase()) %>List" [value]="item.codeId">{{ item.codeName }}</mat-option>
                   </mat-select><% } %>
@@ -71,7 +71,7 @@
                   <textarea matInput placeholder="<%= column.column_name %>" rows="2" formControlName="<%= camelize(column.column_name.toLowerCase()) %>"></textarea><% } else if (column.el_type === 'date') { %>
                   <input matInput placeholder="<%= column.column_name %>" [matDatepicker]="picker_<%= camelize(column.column_name.toLowerCase()) %>" formControlName="<%= camelize(column.column_name.toLowerCase()) %>">
                   <mat-datepicker-toggle matSuffix [for]="picker_<%= camelize(column.column_name.toLowerCase()) %>"></mat-datepicker-toggle>
-                  <mat-datepicker #picker_<%= camelize(column.column_name.toLowerCase()) %>></mat-datepicker><% } else if (column.el_type === 'codebook_dropdown') { %>
+                  <mat-datepicker #picker_<%= camelize(column.column_name.toLowerCase()) %>></mat-datepicker><% } else if (column.el_type === 'dropdown_codebook') { %>
                   <mat-select placeholder="<%= column.column_name %>" formControlName="<%= camelize(column.column_name.toLowerCase()) %>">
                     <mat-option *ngFor="let item of <%= camelize(column.column_name.toLowerCase()) %>List" [value]="item.codeId">{{ item.codeName }}</mat-option>
                   </mat-select><% } %><% if (column.is_require === 'Y') { %>

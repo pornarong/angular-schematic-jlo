@@ -37,7 +37,7 @@ export class <%= classify(name) %>Component implements OnInit {
   ) { }
 
   ngOnInit() {<% if (columnListJson.filter(c => c.el_type === 'dropdown_codebook').length > 0) { %>
-    api.getMultipleCodebookByCodeType({
+    this.api.getMultipleCodebookByCodeType({
       data: [<%= columnListJson.filter(c => c.el_type === 'dropdown_codebook').map(c => "'" + c.type_codebook + "'").join(", ") %>]
     }).then(
       result => {<% for (let column of columnListJson.filter(c => c.el_type === 'dropdown_codebook')) { %>
