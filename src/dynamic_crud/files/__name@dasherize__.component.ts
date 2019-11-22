@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroupDirective, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableControl } from 'src/app/shared/table-control';
 import Utils from 'src/app/shared/utils';
+import { ApiService } from 'src/app/services/api.service';
 import { <%= classify(name) %>Service } from './<%= dasherize(name) %>.service';
 import { <%= classify(name) %> } from './<%= dasherize(name) %>.model';
 import { ApiResponse } from 'src/app/model/api-response.model';
+<% if (columnListJson.filter(c => c.el_type === 'dropdown_codebook').length > 0) { %>import { Dropdown } from 'src/app/model/dropdown.model';<% } %>
 
 @Component({
   selector: 'app-<%= dasherize(name) %>',
@@ -17,6 +19,8 @@ export class <%= classify(name) %>Component implements OnInit {
   createFormDirective: FormGroupDirective;
 
   tableControl: TableControl = new TableControl(() => { this.search(); });
+<% for (let column of columnListJson.filter(c => c.el_type === 'dropdown_codebook')) { %>
+  <%= camelize(column.column_name.toLowerCase()) %>List: Dropdown[];<% } %>
 
   searchForm: FormGroup;
   createForm: FormGroup;
@@ -27,11 +31,19 @@ export class <%= classify(name) %>Component implements OnInit {
   displayedColumns: string[] = [<%= columnListJson.filter(c => c.is_table === 'Y').map(c => "'" + camelize(c.column_name.toLowerCase()) + "'").join(", ") %>, 'action'];
 
   constructor(
+    public api: ApiService,
     private formBuilder: FormBuilder,
     private <%= camelize(name) %>Service: <%= classify(name) %>Service,
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {<% if (columnListJson.filter(c => c.el_type === 'dropdown_codebook').length > 0) { %>
+    api.getMultipleCodebookByCodeType({
+      data: [<%= columnListJson.filter(c => c.el_type === 'dropdown_codebook').map(c => "'" + c.type_codebook + "'").join(", ") %>]
+    }).then(
+      result => {<% for (let column of columnListJson.filter(c => c.el_type === 'dropdown_codebook')) { %>
+        this.<%= camelize(column.column_name.toLowerCase()) %>List = result.data['<%= column.type_codebook %>'];<% } %>
+      }
+    );<% } %>
     this.searchForm = this.formBuilder.group({<% for (let column of columnListJson.filter(c => c.is_searchable === 'Y')) { %><%= "\n      " + camelize(column.column_name.toLowerCase()) + ": ['']," %><% } %>
     });
     this.createForm = this.formBuilder.group({<% for (let column of columnListJson.filter(c => !system_fields.includes(c.column_name.toLowerCase()))) { %><%= "\n      " + camelize(column.column_name.toLowerCase()) + ": [''" + (column.is_require === 'Y' && column.is_identity === 'false' ? ', Validators.required' : '') + "]," %><% } %>
